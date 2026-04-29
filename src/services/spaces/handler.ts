@@ -8,39 +8,30 @@ const ddbClient = new DynamoDBClient({});
 
 async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
 
-    let message = '';
+    let message: string;
 
     try {
         switch (event.httpMethod) {
             case 'GET':
-                return getSpaces(event, ddbClient);
+                const getResponse = await getSpaces(event, ddbClient);
+                console.log(getResponse)
+                return getResponse;
             case 'POST':
-                return postSpaces(event, ddbClient);
+                const postResponse = await postSpaces(event, ddbClient);
+                return postResponse;
             default:
                 return {
                     statusCode: 405,
-                    body: JSON.stringify('Method Not Allowed')
+                    body: JSON.stringify({ error: 'Method not allowed' })
                 };
         }
-    } catch (error: unknown) {
+    } catch (error) {
         console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify(
-                error instanceof Error ? error.message : 'Internal server error'
-            )
+            body: JSON.stringify(error instanceof Error ? error.message : String(error))
         }
     }
-
-
-
-
-    const response: APIGatewayProxyResult = {
-        statusCode: 200,
-        body: JSON.stringify(message)
-    }
-
-    return response;
 }
 
 export { handler }
