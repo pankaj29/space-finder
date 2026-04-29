@@ -1,35 +1,38 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import { postSpaces } from "./PostSpaces";
+import { getSpaces } from "./GetSpaces";
 
 
 const ddbClient = new DynamoDBClient({});
 
 async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
 
-    let message: string;
+    let message = '';
 
     try {
         switch (event.httpMethod) {
             case 'GET':
-                message = 'Hello from GET!'
-                break;
+                return getSpaces(event, ddbClient);
             case 'POST':
-                const response = postSpaces(event, ddbClient);
-                return response;
+                return postSpaces(event, ddbClient);
             default:
                 return {
                     statusCode: 405,
-                    body: JSON.stringify('Method not allowed')
-                }
+                    body: JSON.stringify('Method Not Allowed')
+                };
         }
     } catch (error: unknown) {
         console.error(error);
         return {
             statusCode: 500,
-            body: JSON.stringify(error instanceof Error ? error.message : String(error))
+            body: JSON.stringify(
+                error instanceof Error ? error.message : 'Internal server error'
+            )
         }
     }
+
+
 
 
     const response: APIGatewayProxyResult = {

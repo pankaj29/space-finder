@@ -9,6 +9,6 @@ Content-Type: application/json
     "location": "Paris"
 }
 ###
-
+GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=eb64ea98-fe6a-439d-bb65-8f329d770f32
 
 
