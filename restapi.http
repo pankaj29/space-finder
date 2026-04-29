@@ -3,6 +3,11 @@ GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
 
 
 POST https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
+Content-Type: application/json
+
+{
+    "location": "Paris"
+}
 ###
 
 

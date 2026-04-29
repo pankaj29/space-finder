@@ -13,9 +13,13 @@
                 "-r",
                 "ts-node/register"
             ],
-            "args": ["${relativeFile}"],
+            "program": "${workspaceFolder}/${relativeFile}",
+            "skipFiles": ["<node_internals>/**"],
+            "sourceMaps": true,
             "env": {
-                "AWS_REGION": "us-east-1"
+                "AWS_REGION": "us-east-1",
+                "TABLE_NAME": "SpaceTable-12d85173d603",
+                "TS_NODE_SOURCE_MAPS": "true"
             }
         }
     ]
