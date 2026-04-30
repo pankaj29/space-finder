@@ -1,14 +1,28 @@
+
 GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
 ###
 
-
 POST https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
-Content-Type: application/json
+content-type: application/json
 
-{
-    "location": "Paris"
-}
+ {
+    "location": "Dublin",
+    "name": "Best location"
+ }
 ###
-GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=eb64ea98-fe6a-439d-bb65-8f329d770f32
+
+GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=8c88b1df-2558-4273-a986-0daa4256ce3c
+###
+
+DELETE https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=8c88b1df-2558-4273-a986-0daa4256ce3c
+###
+
+PUT https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=39e6a306-6d1c-4940-85d8-f28d47953182
+content-type: application/json
+
+ {
+    "name": "Best location 5"
+ }
+###
 
 

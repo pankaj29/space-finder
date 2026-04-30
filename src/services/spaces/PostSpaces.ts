@@ -1,12 +1,14 @@
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { randomUUID } from "crypto";
+import { marshall } from "@aws-sdk/util-dynamodb";
+import { validateAsSpaceEntry } from "../shared/Validator";
+import { createRandomId, parseJSON } from "../shared/Utils";
 
 
 
 export async function postSpaces(event: APIGatewayProxyEvent, ddbClient: DynamoDBClient): Promise<APIGatewayProxyResult> {
 
-    const randomId = randomUUID();
+    const randomId = createRandomId();
     if (!event.body) {
         return {
             statusCode: 400,
@@ -14,18 +16,13 @@ export async function postSpaces(event: APIGatewayProxyEvent, ddbClient: DynamoD
         };
     }
 
-    const item = JSON.parse(event.body);
+    const item = parseJSON(event.body);
+    item.id = randomId;
+    validateAsSpaceEntry(item);
 
     const result = await ddbClient.send(new PutItemCommand({
         TableName: process.env.TABLE_NAME,
-        Item: {
-            id: {
-                S: randomId
-            },
-            location: {
-                S: item.location
-            }
-        }
+        Item: marshall(item)
     }));
     console.log(JSON.stringify(result));
 

@@ -20,7 +20,7 @@ export class LambdaStack extends Stack {
 
 
         const spacesLambda = new NodejsFunction(this, 'SpacesLambda', {
-            runtime: Runtime.NODEJS_18_X,
+            runtime: Runtime.NODEJS_20_X,
             handler: 'handler',
             entry: (join(__dirname, '..','..', 'services', 'spaces', 'handler.ts')),
             environment: {
@@ -32,7 +32,11 @@ export class LambdaStack extends Stack {
             effect: Effect.ALLOW,
             resources: [props.spacesTable.tableArn],
             actions:[
-                'dynamodb:PutItem'
+                'dynamodb:PutItem',
+                'dynamodb:GetItem',
+                'dynamodb:Scan',
+                'dynamodb:DeleteItem',
+                'dynamodb:UpdateItem'
             ]
         }))
 
