@@ -1,8 +1,13 @@
 
-GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
+@url=https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
+@token=eyJraWQiOiJRV1J0d00rSGRaNWtqckZ5a2tuRGltVFNsTFd5cWpLcFlTdWlTTnJYTXpVPSIsImFsZyI6IlJTMjU2In0.eyJvcmlnaW5fanRpIjoiMmEzMzI4YjItZTZiZS00YTM4LWE2YWItN2FlZDIwOGQ5NGEyIiwic3ViIjoiYzQ1ODc0ZjgtZDBkMS03MDM3LTRlNWEtYzRkMWI5YjI0YTg5IiwiYXVkIjoiMmIwdTU5ZDNraG5nMHFzZHFkNmRtZTMxNGQiLCJldmVudF9pZCI6ImQ2NDJlZjliLTBlOGYtNGY3My1iYzM2LTcyYTIxY2M5NGViMyIsInRva2VuX3VzZSI6ImlkIiwiYXV0aF90aW1lIjoxNzc3NjQ2MTIyLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9VRERoUDRhUzYiLCJjb2duaXRvOnVzZXJuYW1lIjoicGFua2FqdmVybWEiLCJleHAiOjE3Nzc2NDk3MjIsImlhdCI6MTc3NzY0NjEyMiwianRpIjoiYWU4MGZlZDYtN2Q3Yi00NmViLWE3NDAtZTFjNTkxZjdlYzU1In0.su6EU3HK2rFUCv-wc0ysChZYIU7aE-XivlyDtKmADVWqriLuzZDTxNLHrfsXNvZZhSIJ5FrwTnphm10YHmn6bQ0dJ33oowQvbL9HTJIEXDUrOc-QpCyo_cdbIw9WoIxmjkbfQ1WdoTyZpzbtlyPcqntVT6okf7LOeWnlKUjb-6hSyOCIegX1qcc3418kLb-pA4rLmshLgnYkERGM4doTlmma86iuC8I_3DXboavnUW-EP3Nrtpap7nqqCduYrhAYleALEyvnPTR6qN1cL4FxvzKzZS63uALVHivDD5qLmaE3Xz__YuuFoHAsheUh10UM_TLKJ7cPDeaTtjjng4nB8Q
+
+GET {{url}}
+Authorization: {{token}}
 ###
 
-POST https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces
+POST {{url}}
+Authorization: {{token}}
 content-type: application/json
 
  {
@@ -11,18 +16,21 @@ content-type: application/json
  }
 ###
 
-GET https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=8c88b1df-2558-4273-a986-0daa4256ce3c
+GET {{url}}?id=eb64ea98-fe6a-439d-bb65-8f329d770f32
+Authorization: {{token}}
 ###
 
-DELETE https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=8c88b1df-2558-4273-a986-0daa4256ce3c
+DELETE {{url}}?id=8c88b1df-2558-4273-a986-0daa4256ce3c
+Authorization: {{token}}
 ###
 
-PUT https://ppmug1sihj.execute-api.us-east-1.amazonaws.com/prod/spaces?id=39e6a306-6d1c-4940-85d8-f28d47953182
+PUT {{url}}?id=eb64ea98-fe6a-439d-bb65-8f329d770f32
+Authorization: {{token}}
 content-type: application/json
 
- {
+{
     "name": "Best location 5"
- }
+}
 ###
 
 
