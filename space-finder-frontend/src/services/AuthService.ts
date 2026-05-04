@@ -3,7 +3,7 @@ import type { SignInOutput } from '@aws-amplify/auth';
 import { signIn } from '@aws-amplify/auth';
 import { AuthStack } from '../../../../space-finder/outputs.json'
 
-const awsRegion = 'us-east-1';
+// const awsRegion = 'us-east-1';
 
 Amplify.configure({
     Auth: {

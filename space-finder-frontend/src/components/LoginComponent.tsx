@@ -1,4 +1,5 @@
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
+import type { SyntheticEvent } from "react";
 import { AuthService } from "../services/AuthService";
 import { Navigate } from "react-router-dom";
 
