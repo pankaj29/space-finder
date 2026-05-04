@@ -11,6 +11,7 @@ export class DataStack extends Stack {
     public readonly deploymentBucket: IBucket;
     public readonly photosBucket: IBucket;
 
+
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props);
 
