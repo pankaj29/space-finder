@@ -1,13 +1,21 @@
 import { DeleteItemCommand, DynamoDBClient, UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { hasAdminGroup } from "../shared/Utils";
 
 
 
 export async function deleteSpace(event: APIGatewayProxyEvent, ddbClient: DynamoDBClient): Promise<APIGatewayProxyResult> {
 
+    if (!hasAdminGroup(event)) {
+        return {
+            statusCode: 401,
+            body: JSON.stringify(`Not authorized!`)
+        }
+    }
 
     const spaceId = event.queryStringParameters?.id;
-    if (typeof spaceId === 'string' && spaceId.length > 0) {
+    if (spaceId) {
+
         await ddbClient.send(new DeleteItemCommand({
             TableName: process.env.TABLE_NAME,
             Key: {
@@ -18,7 +26,8 @@ export async function deleteSpace(event: APIGatewayProxyEvent, ddbClient: Dynamo
         return {
             statusCode: 200,
             body: JSON.stringify(`Deleted space with id ${spaceId}`)
-        };
+        }
+
     }
     return {
         statusCode: 400,

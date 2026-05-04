@@ -5,34 +5,36 @@ import { postSpaces } from "./PostSpaces";
 import { updateSpace } from "./UpdateSpace";
 import { deleteSpace } from "./DeleteSpace";
 import { JsonError, MissingFieldError } from "../shared/Validator";
+import { addCorsHeader } from "../shared/Utils";
+import { get } from "node:http";
 
 
 const ddbClient = new DynamoDBClient({});
 
 async function handler(event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> {
 
-    let message: string;
+    let response: APIGatewayProxyResult;
 
     try {
         switch (event.httpMethod) {
              case 'GET':
-                 const getResponse = await getSpaces(event, ddbClient);
-                 console.log(getResponse)
-                 return getResponse;
+                 response = await getSpaces(event, ddbClient);
+                 break;
             case 'POST':
-                const postResponse = await postSpaces(event, ddbClient);
-                return postResponse;
+                response = await postSpaces(event, ddbClient);
+                break;
             case 'PUT':
-                const putResponse = await updateSpace(event, ddbClient);
-                console.log(putResponse)
-                return putResponse;
+                response = await updateSpace(event, ddbClient);
+                break;
             case 'DELETE':
-                const deleteResponse = await deleteSpace(event, ddbClient);
-                console.log(deleteResponse)
-                return deleteResponse;
+                response = await deleteSpace(event, ddbClient);
+                break;
 
             default:
-                message = "Method not allowed";
+                response = {
+                    statusCode: 405,
+                    body: JSON.stringify({ message: 'Method not allowed' })
+                };
                 break;
         }
     } catch (error) {
@@ -55,12 +57,7 @@ async function handler(event: APIGatewayProxyEvent, context: Context): Promise<A
             body: JSON.stringify({ message: error instanceof Error ? error.message : 'Unknown error' })
         }
     }
-
-    const response: APIGatewayProxyResult = {
-        statusCode: 200,
-        body: JSON.stringify(message)
-    }
-
+    addCorsHeader(response);
     return response;
 }
 
