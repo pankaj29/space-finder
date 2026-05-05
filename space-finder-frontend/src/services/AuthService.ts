@@ -28,8 +28,16 @@ Amplify.configure({
 export class AuthService {
   private user: SignInOutput | undefined;
   private userName = '';
-  private jwtToken: string | undefined;
+  public jwtToken: string | undefined;
   private temporaryCredentials: AwsCredentialIdentity | undefined;
+
+  public isAuthorized() {
+    if (this.user){
+        return true;
+
+    }
+    return false;
+}
 
   public async login(
     userName: string,
